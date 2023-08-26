@@ -1,11 +1,7 @@
-import * as fs from "node:fs";
 import { Message } from "whatsapp-web.js";
 import { iCommand } from "../types/types";
 import { prefix } from "../config/config.json";
-
-const commandFiles = fs
-  .readdirSync("src/commands")
-  .filter((file) => file.endsWith(".ts"));
+import { commandFiles } from "../commander/commander";
 
 module.exports = {
   name: "help",
@@ -19,8 +15,8 @@ Prefix: ${prefix}
 `;
 
       for (let file of commandFiles) {
-        const command: iCommand = require(`../commands/${file}`);
-        helpText += `*${command.description}*\n${prefix}${command.syntax}\n\n`;
+        const command: iCommand = (await import(`./${file}`)).default;
+        helpText += `\n\n*${command.description}*\n${prefix}${command.syntax}`;
       }
 
       m.reply(helpText);

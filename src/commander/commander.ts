@@ -4,26 +4,39 @@ import { Message } from "whatsapp-web.js";
 import { prefix, admin_number } from "../config/config.json";
 import { session } from "../utils/global";
 
+let directoryPath: string;
+
+if (process.env.NODE_ENV === "dev") {
+  directoryPath = "./src/commands";
+} else {
+  directoryPath = "./dist/commands";
+}
+
 const commandFiles = fs
-  .readdirSync("src/commands")
-  .filter((file) => file.endsWith(".ts"));
+  .readdirSync(directoryPath)
+  .map((fileName) => fileName.split(".")[0]);
 
 const commandMap = new Map();
 for (let file of commandFiles) {
-  const command: iCommand = require(`../commands/${file}`);
-  commandMap.set(command.name, command);
+  commandMap.set(file, file);
 }
 
 const Commander = async (message: Message) => {
   try {
+    if (message.type != "chat") return;
     if (!message.body.startsWith(prefix)) return;
     if (message.isStatus) return;
 
-    const args = message.body.slice(prefix.length).trim().split(/ +/);
-    const commandName = args.shift()?.toLowerCase();
+    const args: string[] | undefined = message.body
+      .slice(prefix.length)
+      .trim()
+      .split(/ +/);
+    const commandName: string = args.shift()?.toLowerCase() || "";
 
     if (!commandMap.has(commandName)) return;
-    const command: iCommand = commandMap.get(commandName);
+    const command: iCommand = (
+      await import(`../commands/${commandMap.get(commandName)}`)
+    ).default;
 
     command.execute(message, args);
   } catch (error) {
@@ -31,4 +44,4 @@ const Commander = async (message: Message) => {
   }
 };
 
-export { Commander };
+export { Commander, commandFiles };

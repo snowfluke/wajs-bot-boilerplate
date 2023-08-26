@@ -19,3 +19,11 @@ client.on("message", (msg) => {
 });
 
 client.initialize();
+
+process.once("unhandledRejection", function (reason, p) {
+  console.log(reason, p);
+});
+
+process.once("uncaughtException", function (err) {
+  console.log(err);
+});
