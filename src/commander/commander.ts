@@ -1,8 +1,7 @@
 import * as fs from "node:fs";
-import { iCommand } from "../types/types";
 import { Message } from "whatsapp-web.js";
-import { prefix, admin_number } from "../config/config.json";
-import { session } from "../utils/global";
+import { prefix } from "../config/config.json";
+import { iCommand } from "../types/types";
 
 let directoryPath: string;
 

@@ -1,11 +1,19 @@
-import { Client, LocalAuth } from "whatsapp-web.js";
 import qrcode from "qrcode-terminal";
+import { Client, LocalAuth } from "whatsapp-web.js";
 import { Commander } from "./commander/commander";
 
 const client = new Client({
   authStrategy: new LocalAuth(),
+  webVersion: "2.3000.1012972578-alpha",
+  webVersionCache: {
+    type: "remote",
+    remotePath:
+      "https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/{version}.html",
+  },
+  puppeteer: {
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  },
 });
-
 client.on("qr", (qr) => {
   qrcode.generate(qr, { small: true });
 });
