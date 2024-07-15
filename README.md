@@ -1,6 +1,9 @@
 # WAJS-BOT-BOILERPLATE
 
-A boilerplate for those who wants a quick start in building a whatsapp bot via whatsapp-web.js. If you're looking for REST API version, you can go here: https://github.com/snowfluke/wagate
+A boilerplate for those who wants a quick start in building a whatsapp bot via whatsapp-web.js. 
+
+- If you're looking for REST API version, you can go here: https://github.com/snowfluke/wagate
+- For dial-based bot whatsapp, visit: https://github.com/snowfluke/dial-wabot-boilerplate
 
 ## Contribution
 
