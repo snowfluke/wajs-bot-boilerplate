@@ -16,7 +16,7 @@ Any features request and contribution are welcome! ^\_^
 ### Installation
 
 1. Node.js, latest is preferable
-2. yarn package manager. Install via npm with `npm i -g yarn`
+2. npm package manager, recommended
 3. You can go for docker for an easy setups, or if you deploy it manually you will need to install Google Chrome
 
 #### Windows
@@ -73,15 +73,20 @@ sudo apt-get update && sudo apt-get install -y \
 ## Running
 
 5. `cd` into the project directory
-6. run `yarn install`
-7. run `yarn build`
-8. run `yarn start`
+6. run `npm install`
+7. run `npm run build`
+8. run `npm start`
 9. After that you will need to scan the QR that is printed to the terminal
 10. You're basically done, or if you want to be more robust, you can use `pm2` for a better process management
 
 ## Debugging
 
-In case a bug happen, try to delete `node_modules` folder and run `yarn install` again. You will also need to delete `.wwebjs_auth` folder as well.
+- Delete `.wwebjs_auth` folder
+- Delete `node_modules` folder
+- Delete `package-lock.json` file
+- Logout the linked devices on your Whatsapp
+- Remove `whatsapp-web.js` from `package.json`
+- Run `npm install github:pedroslopez/whatsapp-web.js#webpack-exodus`
 
 ## Customization
 

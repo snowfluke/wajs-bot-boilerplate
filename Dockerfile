@@ -41,16 +41,15 @@ RUN apt-get update && apt-get install -y \
     xdg-utils \
     wget
 
-RUN npm install -g yarn
 
 WORKDIR /app
 
 COPY . .
 
-RUN yarn install
+RUN npm install
 
-RUN yarn run build
+RUN npm run build
 
 EXPOSE 3000
 
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
